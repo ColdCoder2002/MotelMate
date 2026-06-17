@@ -1,0 +1,21 @@
+import express from "express";
+import dotenv from 'dotenv';
+import connectDb from "./Config/db.js";
+import authRouter from "./Routes/auth.route.js";
+import cookieParser from "cookie-parser";
+
+dotenv.config();
+const PORT = process.env.PORT || 5500;
+
+const app = express();
+app.use(express.json())
+app.use(cookieParser())
+
+app.use("/api/auth", authRouter)
+
+
+app.listen(PORT, () => {
+    connectDb()
+    console.log(`Server is running on port ${PORT}`);
+    console.log(`http://localhost:8080/`);
+})
